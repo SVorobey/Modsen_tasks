@@ -49,6 +49,14 @@ const SearchInput = styled.input`
   }
 `
 
+const SearchForm = styled.form`
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+  z-index: 11;
+`
+
 
 export default function Map() {
   const mapContainerRef = useRef(null);
@@ -116,12 +124,12 @@ export default function Map() {
     }}><LocationButton onClick={returnToLocation}>
       <FontAwesomeIcon icon={faLocationCrosshairs} />
     </LocationButton>
-      <form className="searchForm">
+      <SearchForm>
         <SearchInput type="text" placeholder="Search" value={inputRequest} onChange={e => setInputRequest(e.target.value)}/>
         <SearchButton onClick={(e) => inputSearch(e)} type="button">
           <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
         </SearchButton>
-      </form>
+      </SearchForm>
     </div>
   )
 }
