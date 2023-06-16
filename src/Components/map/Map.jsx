@@ -1,9 +1,8 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import mapboxgl from 'mapbox-gl';
-import MapboxGeocoder from 'mapbox-gl-geocoder';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons';
+import { faLocationCrosshairs, faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3Rhc3Zvcm9iZXkiLCJhIjoiY2xpdmdnNmpiMThrYjNobzdtcDlmemg0NCJ9.-KBLbzC4OJdmWsTROPBGYQ';
 
@@ -20,13 +19,41 @@ const LocationButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 15px 0 0 20px;
+  cursor: pointer;
+`
+const SearchButton = styled.button`
+  font-size: 18px;
+  width: 40px;
+  border-radius: 5px;
+  height: 35px;
+  margin-left: 10px;
+  margin-top: 20px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `
 
+const SearchInput = styled.input`
+  height: 25px;
+  width: 200px;
+  font-size: 16px;
+  margin-top: 23px;
+  border-radius: 8px;
+  outline: none;
+  padding-left: 10px;
+  &:focus {
+    border: 1px solid #00FFFF;
+  }
+`
 
 
 export default function Map() {
   const mapContainerRef = useRef(null);
   const mapBox = useRef(null);
+  const [inputRequest, setInputRequest] = useState('Кафе');
   const mapInit = function() {
     mapBox.current = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -49,22 +76,30 @@ export default function Map() {
       })
     });
   }
-  const addSearchPanel = function() {
-mapBox.current.addControl(
-new MapboxGeocoder({
-accessToken: mapboxgl.accessToken,
-mapboxgl: mapboxgl
-})
-);
+  const searchData = async() => {
+    try {
+      const response = await fetch(`https://search-maps.yandex.ru/v1/?text=${inputRequest}&type=biz&ll=${localStorage.getItem('lng')},${localStorage.getItem('lat')}&lang=ru_RU&apikey=57c08b98-7586-46c2-856a-5e039c0958ec`)
+        .then((response) => response.json())
+        .then (data => data.features);
+      return response;
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
+  const inputSearch = async(event) => {
+    event.preventDefault();
+    const data = await searchData();
+    console.log(data);
+  }
+  
   useEffect(() => {
     mapInit();
     getPosition();
-    addSearchPanel();
     return () => {
       mapBox.current.remove();
     }
-  },)
+  },[])
   const returnToLocation = () => {
     mapBox.current.flyTo({
       center: [localStorage.getItem('lng'), localStorage.getItem('lat')],
@@ -78,8 +113,15 @@ mapboxgl: mapboxgl
       top: "0", 
       bottom: "0", 
       width: "100%"
-    }}><LocationButton onClick={() => returnToLocation()}>
+    }}><LocationButton onClick={returnToLocation}>
       <FontAwesomeIcon icon={faLocationCrosshairs} />
-    </LocationButton></div>
+    </LocationButton>
+      <form className="searchForm">
+        <SearchInput type="text" placeholder="Search" value={inputRequest} onChange={e => setInputRequest(e.target.value)}/>
+        <SearchButton onClick={(e) => inputSearch(e)} type="button">
+          <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
+        </SearchButton>
+      </form>
+    </div>
   )
 }
