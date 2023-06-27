@@ -1,0 +1,10 @@
+{
+"extends": "airbnb",
+"globals": {
+    "localStorage": "readonly",
+    "navigator": "readonly",
+    "document": "readonly",
+    "alert": "readonly",
+    "window": "readonly"
+}
+}
