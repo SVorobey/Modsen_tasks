@@ -1,5 +1,5 @@
 import React from 'react';
-import YandexMap from './Components/Map/index.jsx';
+import YandexMap from './Components/Map/index';
 
 function App() {
   return (
