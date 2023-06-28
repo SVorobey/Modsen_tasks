@@ -71,6 +71,7 @@ export default function YandexMap() {
       <Categories
         setData={setData}
         setInputRequest={setInputRequest}
+        inputRadius={radiusInput}
       />
       {
         data.length > 0

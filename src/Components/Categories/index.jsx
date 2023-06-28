@@ -5,9 +5,9 @@ import categories from './categories';
 import getRequest from '../../Helpers/Search/getRequest';
 
 // eslint-disable-next-line react/prop-types
-export default function Categories({ setData, setInputRequest }) {
+export default function Categories({ setData, setInputRequest, inputRadius }) {
   const categoryClick = (query) => {
-    getRequest(query, setData);
+    getRequest(query, setData, inputRadius);
     setInputRequest(query);
   };
   return (
