@@ -51,3 +51,16 @@ export const SearchForm = styled.form`
   right: 15px;
   z-index: 11;
 `;
+
+export const RadiusInput = styled.input`
+  width: 72px;
+  background: #000;
+  border: 1px solid #FFF;
+  color: #FFF;
+  margin: 10px 10px 0 0;
+  padding-left: 5px;
+  &::placeholder {
+    color: #FFF;
+    font-weight: 400;
+  }
+`;

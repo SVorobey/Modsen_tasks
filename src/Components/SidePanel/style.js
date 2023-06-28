@@ -10,8 +10,6 @@ export const PanelCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid rgb(238, 238, 238);
-  padding: 5px 8px 10px 12px;
   cursor: pointer;
   &:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -53,4 +51,26 @@ export const Wrapper = styled.div`
   width: 280px;
   z-index: 10;
   overflow: hidden;
+`;
+
+export const Button = styled.button`
+  margin: 10px 0 5px 10px;
+  border: 1px solid #D3D3D3;
+  max-width: 135px;
+  border-radius: 10px;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px;
+  background: #FFF;
+  color: #000;
+  font-size: 12px;
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(238, 238, 238);
+  padding: 5px 8px 10px 12px;
 `;

@@ -17,6 +17,13 @@ function placeMarkers(data, ymaps, map) {
       iconColor: '#000000',
     });
     map.current.geoObjects.add(marker);
+    marker.events
+      .add('mouseenter', (e) => {
+        e.get('target').options.set('iconColor', '#A9A9A9');
+      })
+      .add('mouseleave', (e) => {
+        e.get('target').options.set('iconColor', '#000000');
+      });
     count += 1;
   });
 }
