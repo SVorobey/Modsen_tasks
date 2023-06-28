@@ -7,11 +7,11 @@ import {
 } from './style';
 import getRequest from '../../Helpers/Search/getRequest';
 import returnToLocation from '../../Helpers/Map/returnToLocation';
-import Categories from '../Categories';
+import Categories from '../Categories/index';
 import getPosition from '../../Helpers/Map/getPosition';
 import mapInitialize from '../../Helpers/Map/mapInitialize';
 import placeMarkers from '../../Helpers/Search/placeMarkers';
-import SidePanel from '../SidePanel';
+import SidePanel from '../SidePanel/index';
 
 export default function YandexMap() {
   const { ymaps } = window;
